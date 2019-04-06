@@ -20,5 +20,6 @@
     "sourceMap": true,
     "pretty": true,
     "strict": true,
+    "isolatedModules": true
   }
 }
