@@ -1,6 +1,7 @@
 {
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "test/**/*"
   ],
   "exclude": [
     "node_modules"
@@ -17,7 +18,6 @@
       "es5",
       "es2015.promise"
     ],
-    "sourceMap": true,
     "pretty": true,
     "strict": true,
     "isolatedModules": true
