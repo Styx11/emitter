@@ -17,7 +17,7 @@ export default class Emitter {
       return this;
     }
     if (!Array.isArray(this._events[event])) {
-      const cbs: Array<Function> = [];
+      const cbs: Array<Callback> = [];
       this._events[event] = cbs;
     }
     this._events[event].push(cb);
