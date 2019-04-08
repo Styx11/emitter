@@ -23,4 +23,8 @@ export default class Emitter {
     this._events[event].push(cb);
     return this;
   };
+  listenerCount (event: string): number {
+    const count = this._events[event].length;
+    return count;
+  };
 }
