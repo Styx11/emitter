@@ -1,7 +1,14 @@
 import {
+  Warn,
   Events,
   Callback,
 } from './interface';
+
+const warn: Warn = function (msg: string): void {
+  if (process.env.NODE_ENV === 'production') return;
+  const warnMsg: string = `[Emitter Warn]: ${msg}`;
+  throw new Error(warnMsg);
+}
 
 export default class Emitter {
   private _events: Events;
@@ -16,6 +23,7 @@ export default class Emitter {
       }
       return this;
     }
+    if (!event || typeof event !== 'string') warn(`'on' expected a string | string[] as param`);
     if (!Array.isArray(this._events[event])) {
       const cbs: Array<Callback> = [];
       this._events[event] = cbs;
@@ -24,6 +32,8 @@ export default class Emitter {
     return this;
   };
   listenerCount (event: string): number {
+    if (!event || typeof event !== 'string') warn(`'listenerCount' expected a string as param`);
+    if (!Array.isArray(this._events[event])) return 0;
     const count = this._events[event].length;
     return count;
   };
