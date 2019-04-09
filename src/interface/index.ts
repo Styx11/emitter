@@ -7,3 +7,7 @@ export interface Events {
 export interface Callback {
   (...args: Array<any>): any;
 }
+
+export interface Warn {
+  (msg: string): void;
+}
