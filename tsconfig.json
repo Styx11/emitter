@@ -4,7 +4,9 @@
     "test/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "test/webpack.test.js",
+    "test/dist/**/*"
   ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
