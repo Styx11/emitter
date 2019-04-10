@@ -1,9 +1,9 @@
 module.exports = {
   mode: 'production',
-  entry: './src/index.ts',
+  entry: './test/index.ts',
   output: {
     filename: 'index.js',
-    path: __dirname + '/release'
+    path: __dirname + '/dist'
   },
   resolve: {
     extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
@@ -13,7 +13,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',
-        include: /src/
+        include: [/test/, /src/]
       }
     ]
   }
