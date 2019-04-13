@@ -1,10 +1,11 @@
-import result_on from './test.on';
-const assert = require('assert');
+import assert from 'assert';
+import unitTestOn from './unit/test.on';
 
 try {
-  assert.ok(result_on);
+  assert.ok(unitTestOn());
 
-  console.log('TEST ALL PAST');
+  console.log('TESTS ALL PAST');
 } catch (e) {
+  console.log('TESTS HAS FAILED');
   console.error(e);
 }
