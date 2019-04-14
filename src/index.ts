@@ -37,4 +37,34 @@ export default class Emitter {
     const count = this._events[event].length;
     return count;
   };
+  off (event?: string | Array<string>, cb?: Callback): this {
+    if (!event || !arguments.length) {
+      this._events = Object.create(null);
+      return this;
+    }
+    if (Array.isArray(event)) {
+      const length: number = event.length;
+      for (let i=0; i<length; i++) {
+        this.off(event[i], cb);
+      }
+      return this;
+    }
+    if (!cb || typeof cb !== 'function') {
+      const cbs: Array<Callback> = [];
+      this._events[event] = cbs;
+      return this;
+    }
+    const cbs: Array<Callback> = this._events[event];
+    if (!Array.isArray(cbs)) return this;
+
+    let index: number = cbs.length;
+    while (index--) {
+      let fn = cbs[index];
+      if (cb === fn || cb === fn.prototype.cb) {// 当监听 once 事件时，cb 绑定在包装函数的原型上
+        cbs.splice(index, 1);// 修改原数组
+        break;
+      }
+    }
+    return this;
+  };
 }
