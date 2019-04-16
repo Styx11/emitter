@@ -14,7 +14,7 @@ export default function unitTestOff (): boolean {
     emitter.off('event1', cb);
     emitter.off('event2', cb);
     emitter.off('event3', cb);
-    console.log('test:OFF group.2 all past');
+    console.log('test:OFF group.1 all past');
   } catch (e) {
     res = false;
     console.log('test:OFF group.1 has failed');
