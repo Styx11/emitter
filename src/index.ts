@@ -67,4 +67,22 @@ export default class Emitter {
     }
     return this;
   };
+  emit (event: string, ...args: Array<any>): boolean {
+    if (!event || typeof event !== 'string') warn(`'emit' expected a string as param`);
+    const listenerCount: number = this.listenerCount(event);
+    const hasListener: boolean = !!listenerCount;
+    const cbs: Array<Callback> = this._events[event];
+    if (!Array.isArray(cbs)) return hasListener;
+    
+    const length: number = cbs.length;
+    for (let i=0; i<length; i++) {
+      let cb: Callback = cbs[i];
+      if (cb.apply && typeof cb.apply === 'function') {
+        cb.apply(this, args);
+      } else {
+        cb(...args);
+      }
+    }
+    return hasListener;
+  }
 }
