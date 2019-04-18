@@ -11,3 +11,10 @@ export interface Callback {
 export interface Warn {
   (msg: string): void;
 }
+
+// 测试结果
+export interface Result {
+  res?: string;// 检查返回结果
+  thisCheck?: boolean;// 检查 this
+  listenerCount?: number;// 检查 cb 调用次数
+};
