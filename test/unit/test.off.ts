@@ -21,6 +21,8 @@ export default function unitTestOff (): boolean {
     console.error(e);
   }
 
+  // removeListener() 最多只会从监听器数组中移除一个监听器。
+  // 如果监听器被多次添加到指定 eventName 的监听器数组中，则必须多次调用 removeListener() 才能移除所有实例。
   try {
     for (let i=0; i<4; i++) {
       emitter.on(events, cb);
