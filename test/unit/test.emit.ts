@@ -1,11 +1,9 @@
 import assert from 'assert';
 import Emitter from '../../src';
-import { Callback } from '../../src/interface';
-interface Result {
-  res: string;// 检查返回结果
-  thisCheck: boolean;// 检查 this
-  listenerCount: number;// 检查 cb 调用次数
-};
+import {
+  Callback,
+  Result
+} from '../../src/interface';
 
 export default function unitTestEmit (): boolean {
   let res: boolean = true;
@@ -24,7 +22,7 @@ export default function unitTestEmit (): boolean {
   const checkCount: Callback = (...args: Array<any>): any => {
     if (!args) return;
     args[0].listenerCount++;
-  }
+  };
 
   try {
     emitter.on(events, checkRes);
