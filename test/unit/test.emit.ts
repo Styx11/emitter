@@ -154,5 +154,39 @@ export default function unitTestEmit (): boolean {
     console.log('test:EMIT group.5 has failed');
     console.error(e);
   }
+
+  // firstly crushed in ONCE
+  // Catched: TypeError: Cannot read property 'apply' of undefined
+  // Fix: stabilize the cb list
+  //      because cb could be removed when running once wrapper function
+  try {
+    const cb: Callback = function (this: Emitter, event: string): void {
+      this.off(event, cb);
+    };
+    emitter.off();
+    for (let i=1; i<4; i++) {
+      for (let j=1; j<4; j++) {
+        emitter.on(`event${i}`, cb);
+      }
+    }
+    assert.strictEqual(emitter.listenerCount('event1'), 3);
+    assert.strictEqual(emitter.listenerCount('event2'), 3);
+    assert.strictEqual(emitter.listenerCount('event3'), 3);
+
+    emitter.emit('event1', 'event1');
+    assert.strictEqual(emitter.listenerCount('event1'), 0);
+
+    emitter.emit('event2', 'event2');
+    assert.strictEqual(emitter.listenerCount('event2'), 0);
+
+    emitter.emit('event3', 'event3');
+    assert.strictEqual(emitter.listenerCount('event3'), 0);
+
+    console.log('test:EMIT group.6 all past');
+  } catch (e) {
+    res = false;
+    console.log('test:EMIT group.6 has failed');
+    console.error(e);
+  }
   return res;
 }
