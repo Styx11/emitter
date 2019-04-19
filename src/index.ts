@@ -71,11 +71,12 @@ export default class Emitter {
     if (!event || typeof event !== 'string') warn(`'emit' expected a string as param`);
     const listenerCount: number = this.listenerCount(event);
     const hasListener: boolean = !!listenerCount;
-    const cbs: Array<Callback> = this._events[event];
+    const cbs: Array<Callback> = this._events[event].slice();// stabilize the cb list
     if (!Array.isArray(cbs)) return hasListener;
     
-    const length: number = cbs.length;
-    for (let i=0; i<length; i++) {
+    // use _events[event]'s copy instead
+    // because cb could be removed when running once wrapper function
+    for (let i=0; i<cbs.length; i++) {
       let cb: Callback = cbs[i];
       if (cb.apply && typeof cb.apply === 'function') {
         cb.apply(this, args);
