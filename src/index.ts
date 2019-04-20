@@ -37,6 +37,27 @@ export default class Emitter {
     const count = this._events[event].length;
     return count;
   };
+  once (event: string | Array<string>, cb: Callback): this {
+    if (Array.isArray(event)) {
+      const length: number = event.length;
+      for (let i=0; i<length; i++) {
+        this.once(event[i], cb);
+      }
+      return this;
+    }
+    if (!event || typeof event !== 'string') warn(`'once' expected a string | string[] as param`);
+    const on: Callback = function (this: Emitter, ...args: Array<any>): any {
+      // if param is a string[], cb could be off before execute
+      this.off(event, on);
+      if (cb.apply && typeof cb.apply === 'function') {
+        cb.apply(this, args);
+      } else {
+        cb(...args);
+      }
+    }
+    on.prototype.cb = cb;// cb on the prototype is used for off comparison
+    return this.on(event, on);
+  };
   off (event?: string | Array<string>, cb?: Callback): this {
     if (!event || !arguments.length) {
       this._events = Object.create(null);
