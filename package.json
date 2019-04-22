@@ -1,7 +1,7 @@
 {
   "name": "awesome-emitter",
   "version": "0.0.1",
-  "description": "a tiny event emitter in TypeScript",
+  "description": "a tiny but awesome event emitter",
   "main": "index.js",
   "directories": {
     "test": "test"
