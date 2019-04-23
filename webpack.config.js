@@ -2,6 +2,7 @@ module.exports = {
   mode: 'production',
   entry: './src/index.ts',
   output: {
+    libraryTarget: 'umd',
     filename: 'index.js',
     path: __dirname + '/release'
   },
