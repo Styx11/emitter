@@ -85,6 +85,24 @@ emitter.listenerCount('event');// 0
 ```
 Returns a reference to the `Emitter`, so that calls can be chained.
 
+Note that when a listener is called, the standard `this` keyword is intentionally set to reference the `Emitter` instance to which the `listener` is attached.
+```js
+emitter.once('event', function () {
+  console.log(this === emitter && this instanceof Emitter);
+});
+
+emitter.emit('event');// Print: true
+```
+
+It is possible to use ES6 Arrow Functions as listeners, however, when doing so, the `this` keyword will no longer reference the Emitter instance:
+```js
+emitter.once('event', () => {
+  console.log(this);
+});
+
+emitter.emit('event')// Print: {}
+```
+
 ### emitter.emit(eventName[, ...args])
 * `eventName` { string | Array\<string\> } The name of the event
 * `...args` { Array\<any\> } The arguments of listener
