@@ -2,7 +2,7 @@
 
 > a tiny but awesome event emitter
 
-![](https://img.shields.io/github/tag/Styx11/emitter.svg?label=version) ![](https://img.shields.io/npm/dw/awesome-emitter.svg) ![](https://img.shields.io/github/license/Styx11/emitter.svg)
+![](https://img.shields.io/npm/types/awesome-emitter.svg) ![](https://img.shields.io/npm/v/awesome-emitter.svg) ![](https://img.shields.io/npm/dt/awesome-emitter.svg) ![](https://img.shields.io/github/license/Styx11/emitter.svg)
 
 ## Installation
 Inside your project folder do:
