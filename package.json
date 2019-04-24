@@ -16,7 +16,15 @@
     "type": "git",
     "url": "git+https://github.com/Styx11/emitter.git"
   },
-  "keywords": [],
+  "keywords": [
+    "typescript",
+    "events",
+    "emitter",
+    "event-emitter",
+    "event-bus",
+    "listeners",
+    "node-api"
+  ],
   "author": "Styx<https://github.com/Styx11>",
   "license": "MIT",
   "bugs": {
