@@ -188,5 +188,19 @@ export default function unitTestEmit (): boolean {
     console.log('test:EMIT group.6 has failed');
     console.error(e);
   }
+
+  // Catched: TypeError: Cannot read property 'slice' of undefined
+  // Fix: Check the type of 'this._events[event]'
+  //      before use 'slice()'
+  try {
+    const result: boolean = emitter.emit('event');
+    assert.ok(!result);
+
+    console.log('test:EMIT group.7 all past');
+  } catch (e) {
+    res = false;
+    console.log('test:EMIT group.7 has failed');
+    console.error(e);
+  }
   return res;
 }
