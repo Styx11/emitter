@@ -31,6 +31,23 @@ Then you can `emit` the listener with arguments
 emitter.emit('event1', 'hello, world');
 ```
 
+Benefit from polymorphic `this` types, you can create your own emitter class by extends `Emitter`:
+```js
+class MyEmitter extends Emitter {
+  foo (msg: string): this {
+    console.log(msg);
+    return this;
+  };
+}
+
+const emitter = new MyEmitter();
+emitter
+  .on('event', () => console.log('emitter'))
+  .foo('my emitter')
+  .emit('event');
+```
+In your own emitter methods, return reference to `this`, so that calls can be chained.
+
 ## API
 ### emitter.on(eventName, listener)
 * `eventName` { string | Array\<string\> } The name of the event
