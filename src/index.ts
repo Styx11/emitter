@@ -24,6 +24,7 @@ export default class Emitter {
       return this;
     }
     if (!event || typeof event !== 'string') warn(`'on' expected a string | string[] as param`);
+    if (event !== 'newListener') this.emit('newListener', event, cb);
     if (!Array.isArray(this._events[event])) {
       const cbs: Array<Callback> = [];
       this._events[event] = cbs;
