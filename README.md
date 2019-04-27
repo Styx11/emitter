@@ -49,6 +49,37 @@ emitter
 In your own emitter methods, return reference to `this`, so that calls can be chained.
 
 ## API
+* ['newListener' event](#'newListener'-event)
+* [emitter.on(eventName, listener)](#emitteroneventname-listener)
+* [emitter.listenerCount(eventName)](#emitterlistenercounteventname)
+* [emitter.once(eventName, listener)](#emitteronceeventname-listener)
+* [emitter.emit(eventName[, ...args])](#emitteremiteventname-args)
+* [emitter.off([eventName[, listener]])](#emitteroffeventname-listener)
+
+### 'newListener' event
+* `eventName` { string } The name of the event being listened for
+* `listener` { Function } The event handler function
+
+The `Emitter` instance will emit its own `'newListener'` event *before* a listener is added to its internal array of listeners.
+
+Listeners registered for the `'newListener'` event will be passed the event name and a reference to the listener being added.
+
+The fact that the event is triggered before adding the listener has a subtle but important side effect: any additional listeners registered to the same `name` *within* the `'newListener'` callback will be inserted *before* the listener that is in the process of being added.
+```js
+const cbOrder: Array<string> = [];
+emitter.once('newListener', (eventName: string): void => {
+  if (eventName !== 'event') return;
+  emitter.on('event', () => {
+    cbOrder.push('B');
+  });
+});
+emitter.on('event', () => {
+  cbOrder.push('A');
+});
+emitter.emit('event');
+assert.deepStrictEqual(cbOrder, ['B', 'A']);
+```
+
 ### emitter.on(eventName, listener)
 * `eventName` { string | Array\<string\> } The name of the event
 * `listener` { Function } The callback function
