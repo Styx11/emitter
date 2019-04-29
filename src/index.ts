@@ -35,7 +35,7 @@ export default class Emitter {
   listenerCount (event: string): number {
     if (!event || typeof event !== 'string') warn(`'listenerCount' expected a string as param`);
     if (!Array.isArray(this._events[event])) return 0;
-    const count = this._events[event].length;
+    const count: number = this._events[event].length;
     return count;
   };
   once (event: string | Array<string>, cb: Callback): this {
@@ -74,6 +74,7 @@ export default class Emitter {
     if (!cb || typeof cb !== 'function') {
       const cbs: Array<Callback> = [];
       this._events[event] = cbs;
+      if (event !== 'removeListener') this.emit('removeListener', event);
       return this;
     }
     const cbs: Array<Callback> = this._events[event];
@@ -84,6 +85,7 @@ export default class Emitter {
       let fn = cbs[index];
       if (cb === fn || cb === fn.prototype.cb) {// 当监听 once 事件时，cb 绑定在包装函数的原型上
         cbs.splice(index, 1);// 修改原数组
+        if (event !== 'removeListener') this.emit('removeListener', event, cb);
         break;
       }
     }
