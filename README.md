@@ -49,7 +49,7 @@ emitter
 In your own emitter methods, return reference to `this`, so that calls can be chained.
 
 ## API
-* ['newListener' event](#'newListener'-event)
+* ['newListener' event](#newListener-event)
 * [emitter.on(eventName, listener)](#emitteroneventname-listener)
 * [emitter.listenerCount(eventName)](#emitterlistenercounteventname)
 * [emitter.once(eventName, listener)](#emitteronceeventname-listener)
@@ -77,8 +77,9 @@ emitter.on('event', () => {
   cbOrder.push('A');
 });
 emitter.emit('event');
-assert.deepStrictEqual(cbOrder, ['B', 'A']);
+assert.deepStrictEqual(cbOrder, ['B', 'A']);// ok
 ```
+Note that listen 'newListener' itself won't call the listener.
 
 ### emitter.on(eventName, listener)
 * `eventName` { string | Array\<string\> } The name of the event
