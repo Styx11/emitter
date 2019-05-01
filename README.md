@@ -50,6 +50,7 @@ In your own emitter methods, return reference to `this`, so that calls can be ch
 
 ## API
 * ['newListener' event](#newListener-event)
+* ['removeListener' event](#removeListener-event)
 * [emitter.on(eventName, listener)](#emitteroneventname-listener)
 * [emitter.listenerCount(eventName)](#emitterlistenercounteventname)
 * [emitter.once(eventName, listener)](#emitteronceeventname-listener)
@@ -80,6 +81,17 @@ emitter.emit('event');
 assert.deepStrictEqual(cbOrder, ['B', 'A']);// ok
 ```
 Note that listen 'newListener' itself won't call the listener.
+
+### 'removeListener' event
+* `[eventName]` { string } The name of the event
+* `[listener]` { Function } The event handler function
+The `'removeListener'` event is emitted *after* the listener is removed.
+
+Note that:
+* off 'removeListener' itself won't call the listener function.
+* if you use `off()` without params, `'removeListener'` event will not be emitted.
+* if you use `off()` with `eventName` only, it will be provided in listener function.
+* otherwise, both of them will be provided.
 
 ### emitter.on(eventName, listener)
 * `eventName` { string | Array\<string\> } The name of the event
