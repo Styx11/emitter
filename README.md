@@ -196,6 +196,11 @@ Note that:
 
 You can see more actual cases in [test](test/unit)
 
+## Contributing
+[Pull requests](https://github.com/Styx11/emitter/pulls) are welcomed. For major changes, please open an [issue](https://github.com/Styx11/emitter/issues) first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
 ## Build
 ```
 # install dependencies
@@ -210,11 +215,6 @@ npm run build:test
 # run test
 npm run test
 ```
-
-## Contributing
-[Pull requests](https://github.com/Styx11/emitter/pulls) are welcomed. For major changes, please open an [issue](https://github.com/Styx11/emitter/issues) first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
