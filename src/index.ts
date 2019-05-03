@@ -24,6 +24,7 @@ export default class Emitter {
       return this;
     }
     if (!event || typeof event !== 'string') warn(`'on' expected a string | string[] as param`);
+    if (!cb || typeof cb !== 'function') warn(`'on' expected cb as a function`);
     if (event !== 'newListener') this.emit('newListener', event, cb);
     if (!Array.isArray(this._events[event])) {
       const cbs: Array<Callback> = [];
@@ -47,6 +48,7 @@ export default class Emitter {
       return this;
     }
     if (!event || typeof event !== 'string') warn(`'once' expected a string | string[] as param`);
+    if (!cb || typeof cb !== 'function') warn(`'once' expected cb as a function`);
     const on: Callback = function (this: Emitter, ...args: Array<any>): any {
       // if param is a string[], cb could be off before execute
       this.off(event, on);
@@ -83,8 +85,8 @@ export default class Emitter {
     let index: number = cbs.length;
     while (index--) {
       let fn = cbs[index];
-      if (cb === fn || cb === fn.prototype.cb) {// 当监听 once 事件时，cb 绑定在包装函数的原型上
-        cbs.splice(index, 1);// 修改原数组
+      if (cb === fn || cb === fn.prototype.cb) {// cb is bound to once wrapper fn's prototype
+        cbs.splice(index, 1);
         if (event !== 'removeListener') this.emit('removeListener', event, cb);
         break;
       }
