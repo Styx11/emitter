@@ -1,6 +1,6 @@
 {
   "name": "awesome-emitter",
-  "version": "0.0.3",
+  "version": "0.1.3",
   "description": "a tiny but awesome event emitter",
   "main": "index.js",
   "directories": {
