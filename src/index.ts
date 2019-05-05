@@ -39,6 +39,11 @@ export default class Emitter {
     const count: number = this._events[event].length;
     return count;
   };
+  eventNames (): Array<string> {
+    let res: Array<string> = [];
+    res = Object.keys(this._events);
+    return res;
+  };
   once (event: string | Array<string>, cb: Callback): this {
     if (Array.isArray(event)) {
       const length: number = event.length;
