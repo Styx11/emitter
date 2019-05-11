@@ -49,15 +49,16 @@ emitter
 In your own emitter methods, return reference to `this`, so that calls can be chained.
 
 ## API
-* ['newListener' event](#newListener-event)
-* ['removeListener' event](#removeListener-event)
+* [event: 'newListener'](#event-newListener)
+* [event: 'removeListener'](#event-removeListener)
 * [emitter.on(eventName, listener)](#emitteroneventname-listener)
 * [emitter.listenerCount(eventName)](#emitterlistenercounteventname)
+* [emitter.eventNames()](#emittereventNames)
 * [emitter.once(eventName, listener)](#emitteronceeventname-listener)
 * [emitter.emit(eventName[, ...args])](#emitteremiteventname-args)
 * [emitter.off([eventName[, listener]])](#emitteroffeventname-listener)
 
-### 'newListener' event
+### event: 'newListener'
 * `eventName` { string } The name of the event being listened for
 * `listener` { Function } The event handler function
 
@@ -82,7 +83,7 @@ assert.deepStrictEqual(cbOrder, ['B', 'A']);// ok
 ```
 Note that listen 'newListener' itself won't call the listener.
 
-### 'removeListener' event
+### event: 'removeListener'
 * `[eventName]` { string } The name of the event
 * `[listener]` { Function } The event handler function
 The `'removeListener'` event is emitted *after* the listener is removed.
@@ -130,6 +131,19 @@ emitter.emit('event')// Print: {}
 * Returns { number }
 
 Returns the number of listeners listening to the event named `eventName`.
+
+### emitter.eventNames()
+* Returns { Array\<string\> }
+
+Returns an array listing the events for which the emitter has registered listeners. The values in the array will be strings.
+```ts
+let result: Array<string>;
+const events: Array<string> = ['event1', 'event2', 'event3'];
+
+result = emitter.eventNames();
+assert.ok(Array.isArray(result));
+assert.deepStrictEqual(result, events);
+```
 
 ### emitter.once(eventName, listener)
 * `eventName` { string | Array\<string\> } The name of the event
