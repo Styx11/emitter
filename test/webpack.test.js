@@ -1,5 +1,6 @@
 module.exports = {
-  mode: 'production',
+  mode: 'development',
+  devtool: 'eval-source-map',
   entry: './test/index.ts',
   output: {
     filename: 'index.js',
