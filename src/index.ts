@@ -1,14 +1,11 @@
 import {
-  Warn,
   Events,
   Callback,
 } from './interface';
 
-const warn: Warn = function (msg: string): void {
-  if (process.env.NODE_ENV === 'production') return;
-  const warnMsg: string = `[Emitter Warn]: ${msg}`;
-  throw new Error(warnMsg);
-}
+import {
+  warn
+} from './util';
 
 export default class Emitter {
   private _events: Events;
