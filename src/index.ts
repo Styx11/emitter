@@ -9,6 +9,7 @@ import {
 
 export default class Emitter {
   private _events: Events;
+  static defaultMaxListeners: number = 10;
   constructor () {
     this._events = Object.create(null);
   };
@@ -23,6 +24,8 @@ export default class Emitter {
     if (!event || typeof event !== 'string') warn(`'on' expected a string | string[] as param`);
     if (!cb || typeof cb !== 'function') warn(`'on' expected cb as a function`);
     if (event !== 'newListener') this.emit('newListener', event, cb);
+    if (this.listenerCount(event) >= Emitter.defaultMaxListeners)
+      warn(`a maximum of ${Emitter.defaultMaxListeners} listeners can be registered for event '${event}'`);
     if (!Array.isArray(this._events[event])) {
       const cbs: Array<Callback> = [];
       this._events[event] = cbs;
